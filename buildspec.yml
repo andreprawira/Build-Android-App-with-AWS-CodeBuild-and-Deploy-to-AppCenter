@@ -1,0 +1,29 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      android: 29
+      java: corretto8
+      nodejs: 12
+  pre_build:
+    commands:
+      - cd MobileApp
+      - npm install -g react-native-cli
+      - yarn
+      - cd android
+  build:
+    commands:
+      - ./gradlew clean
+      - ./gradlew assembleRelease
+  post_build:
+    commands:
+      - npm install -g appcenter-cli
+      - appcenter login --token <ADD-TOKEN-HERE>
+      - appcenter apps list
+      - ls
+      - pwd
+      - appcenter distribute release --app <1>/<2> --file app/build/outputs/apk/release/app-release.apk --group "<3>"
+artifacts:
+  files:
+    - MobileApp/android/app/build/outputs/apk/release/*.apk
+  discard-paths: yes
