@@ -20,8 +20,6 @@ phases:
       - npm install -g appcenter-cli
       - appcenter login --token <ADD-TOKEN-HERE>
       - appcenter apps list
-      - ls
-      - pwd
       - appcenter distribute release --app <1>/<2> --file app/build/outputs/apk/release/app-release.apk --group "<3>"
 artifacts:
   files:
